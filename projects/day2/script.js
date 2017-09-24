@@ -8,6 +8,7 @@ videoElement.load();
 videoElement.crossOrigin = 'anonymous';
 videoElement.setAttribute('webkit-playsinline', 'true');
 videoElement.setAttribute('playsinline', 'true');
+var videoName = "Pano";
 //
 
 var videoTexture = new THREE.Texture(videoElement);
@@ -19,8 +20,9 @@ videoTexture.format = THREE.RGBFormat;
 var controls = new THREE.VRControls(camera);
 controls.standing = true;
 camera.position.y = controls.userHeight;
-camera.target = new THREE.Vector3(-1, controls.userHeight, 0);
+camera.target = new THREE.Vector3(0, controls.userHeight, 0);
 camera.lookAt(camera.target);
+camera.rotationAutoUpdate = false;
 
 var material = new THREE.MeshBasicMaterial({ map: videoTexture, side: THREE.DoubleSide });
 var mesh = new THREE.Mesh(geometry, material);
@@ -29,7 +31,7 @@ mesh.position.set(0, controls.userHeight, 0);
 mesh.rotation.y = -Math.PI / 2;
 scene.add(mesh);
 //
-var planeGeometry = new THREE.PlaneGeometry(1, 1);
+var planeGeometry = new THREE.PlaneGeometry(2, 2);
 var canvas = document.createElement('canvas');
 var context = canvas.getContext('2d');
 
@@ -65,7 +67,7 @@ function wrapText(x, y) {
 }
 wrapText(x, y);
 
-context.font = '11pt Calibri';
+context.font = '13pt Calibri';
 context.fillStyle = 'yellow';
 
 var textTexture = new THREE.Texture(canvas);
@@ -114,18 +116,20 @@ document.getElementById('no-vr').addEventListener('click', function() {
 document.getElementById('vr-button').addEventListener('click', function() {
   //camera.lookAt(camera.target);
   videoElement.play();
-  window.open("http://www.google.com/");
+  //window.open("http://www.google.com/");
  // videoElement.loop = true;
+ //saveFile();
  startScroll = true;
 });
 
+function saveFile(){
+  var d = new Date();
+  var text = "127.1 127 128;\r\n128 129 30";
+  var filename = videoName + " " + d.getFullYear().toString() + "-" + d.getMonth().toString() + "-" + d.getDate().toString() + " " + d.getHours().toString() + "h" + d.getMinutes().toString() + "m" + d.getSeconds().toString() + "s";
+  var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
+  saveAs(blob, filename+".txt");
+}
 var interacting;
-var pointerX = 0;
-var pointerY = 0;
-var lat = 0;
-var lng = 0;
-var savedLat = 0;
-var savedLng = 0;
 
 var xaxis = new THREE.Vector3(1, 0, 0);
 var yaxis = new THREE.Vector3(0, 1, 0);
@@ -218,8 +222,35 @@ function onkey(event) {
             videoElement.play();
           }
           else {
-          //window.open("http://www.google.com/");
+          //saveFile();
           videoElement.pause();
           }
+      }
+      //roll
+      else if (event.keyCode == 69) { //e
+          camera.rotation.z += 0.01;
+          effect.render(scene, camera);
+      }
+      else if (event.keyCode == 81) { //q
+          camera.rotation.z -= 0.01;
+          effect.render(scene, camera);
+      }
+      //pitch
+      else if (event.keyCode == 87) { //w
+          camera.rotation.x += 0.01;
+          effect.render(scene, camera);
+      }
+      else if (event.keyCode == 83) { //s
+          camera.rotation.x -= 0.01;
+          effect.render(scene, camera);
+      }
+      //yaw
+      else if (event.keyCode == 65) { //a
+          camera.rotation.y += 0.01;
+          effect.render(scene, camera);
+      }
+      else if (event.keyCode == 68) { //d
+          camera.rotation.y -= 0.01;
+          effect.render(scene, camera);
       }
 }
