@@ -26,6 +26,7 @@ var material = new THREE.MeshBasicMaterial({ map: videoTexture, side: THREE.Doub
 var mesh = new THREE.Mesh(geometry, material);
 mesh.scale.x = -1;
 mesh.position.set(0, controls.userHeight, 0);
+mesh.rotation.y = -Math.PI / 2;
 scene.add(mesh);
 //
 var planeGeometry = new THREE.PlaneGeometry(1, 1);
@@ -113,6 +114,7 @@ document.getElementById('no-vr').addEventListener('click', function() {
 document.getElementById('vr-button').addEventListener('click', function() {
   //camera.lookAt(camera.target);
   videoElement.play();
+  window.open("http://www.google.com/");
  // videoElement.loop = true;
  startScroll = true;
 });
@@ -216,6 +218,7 @@ function onkey(event) {
             videoElement.play();
           }
           else {
+          //window.open("http://www.google.com/");
           videoElement.pause();
           }
       }
