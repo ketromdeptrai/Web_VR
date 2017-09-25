@@ -39,7 +39,7 @@ var maxWidth = canvas.width;
 var lineHeight = 25;
 var startScroll = false;
 
-var text = /*' '+camera.scale.x+' '+camera.scale.y+' '+camera.scale.z+*/'Start';
+var text = 'Start';
 var x = 0;
 var y = 60;
 
@@ -97,6 +97,8 @@ var options = {
   corners: 'square',
   textEnterVRTitle: 'Play Video'
 };
+var fileDownloaded = false;
+var videoPlayed = false;
 var enterVRButton = new webvrui.EnterVRButton(renderer.domElement, options);
 enterVRButton.on('hide', function() {
   document.getElementById('ui').style.display = 'none';
@@ -109,6 +111,8 @@ document.getElementById('no-vr').addEventListener('click', function() {
   enterVRButton.requestEnterFullscreen();
   //videoElement.loop = true;
  // camera.lookAt(camera.target);
+ 	videoPlayed = true;
+	fileDownloaded = false;
   videoElement.play();
   startScroll = true;
 });
@@ -119,41 +123,80 @@ document.getElementById('vr-button').addEventListener('click', function() {
   //window.open("http://www.google.com/");
  // videoElement.loop = true;
  //saveFile();
+ videoPlayed = true;
+  fileDownloaded = false;
  startScroll = true;
 });
 
-function saveFile(){
+var myVar = window.setInterval(writeFile, 33);
+function writeFile(){
+	if(!videoElement.ended && !videoElement.paused){
+		textFile = textFile + text + ";\r\n";
+	}
+}
+
+function saveFile(text){
   var d = new Date();
-  var text = "127.1 127 128;\r\n128 129 30";
+  //text = "127.1 127 128;\r\n128 129 30";
   var filename = videoName + " " + d.getFullYear().toString() + "-" + d.getMonth().toString() + "-" + d.getDate().toString() + " " + d.getHours().toString() + "h" + d.getMinutes().toString() + "m" + d.getSeconds().toString() + "s";
   var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
   saveAs(blob, filename+".txt");
 }
-var interacting;
 
+var interacting;
 var xaxis = new THREE.Vector3(1, 0, 0);
 var yaxis = new THREE.Vector3(0, 1, 0);
 var zaxis = new THREE.Vector3(0, 0, 1);
 var pos = 60;
+var textFile = '';
 animate();
 
 function animate() {
   //
-if(startScroll) {
+  if (videoElement.ended && !fileDownloaded){
+  	videoPlayed = false;
+  	saveFile(textFile);
+  	fileDownloaded = true;
+  }
+	if(startScroll) {
     textTexture.needsUpdate = true;
     wrapText(0, pos);
-    text = ' '+camera.rotation.x.toFixed(3)+' '+camera.rotation.y.toFixed(3)+' '+camera.rotation.z.toFixed(3);
+    /*var q = camera.quaternion.clone();
+	// roll (x-axis rotation)
+	var sinr = 2.0 * (q.w * q.x + q.y * q.z);
+	var cosr = 1.0 - 2.0 * (q.x * q.x + q.y * q.y);
+	var roll = Math.atan2(sinr, cosr);
+
+	// pitch (y-axis rotation)
+	var sinp = 2.0 * (q.w * q.y - q.z * q.x);
+	if (sinp > 1)
+		sinp =  1;
+	else sinp;
+	if (sinp < -1)
+		sinp = -1;
+	else sinp;
+	var pitch = Math.asin(sinp);
+
+	// yaw (z-axis rotation)
+	var siny = 2.0 * (q.w * q.z + q.x * q.y);
+	var cosy = 1.0 - 2.0 * (q.y * q.y + q.z * q.z);  
+	var yaw = Math.atan2(siny, cosy)*/;
+
+    //text = ' '+((pitch)*180/Math.PI).toFixed(3)+' '+((yaw)*180/Math.PI).toFixed(3)+' '+((roll)*180/Math.PI).toFixed(3);
+  	text = ''+((camera.getWorldRotation().x)*180/Math.PI).toFixed(3)+' '+((camera.getWorldRotation().y)*180/Math.PI).toFixed(3)+' '+((camera.getWorldRotation().z)*180/Math.PI).toFixed(3);
+  	//textFile = textFile + text + ";\r\n";
+  	//text = '' + q.order;
    // pos -= 0.1;
   }
-//
-var direction = zaxis.clone();
-  // Apply the camera's quaternion onto the unit vector of one of the axes
-  // of our desired rotation plane (the z axis of the xz plane, in this case).
-  direction.applyQuaternion(camera.quaternion);
-  // Project the direction vector onto the y axis to get the y component
-  // of the direction.
-  var ycomponent = yaxis.clone().multiplyScalar(direction.dot(yaxis));
-  var xcomponent = xaxis.clone().multiplyScalar(direction.dot(xaxis));
+	//
+	var direction = zaxis.clone();
+  	// Apply the camera's quaternion onto the unit vector of one of the axes
+  	// of our desired rotation plane (the z axis of the xz plane, in this case).
+  	direction.applyQuaternion(camera.quaternion);
+  	// Project the direction vector onto the y axis to get the y component
+  	// of the direction.
+  	var ycomponent = yaxis.clone().multiplyScalar(direction.dot(yaxis));
+  	var xcomponent = xaxis.clone().multiplyScalar(direction.dot(xaxis));
   // Subtract the y component from the direction vector so that we are
   // left with the x and z components.
   direction.sub(ycomponent);
@@ -254,3 +297,26 @@ function onkey(event) {
           effect.render(scene, camera);
       }
 }
+
+/*function getquaternion(){
+	var q = camera.quaternion.clone();
+	// roll (x-axis rotation)
+	var sinr = 2.0 * (q.w * q.x + q.y * q.z);
+	var cosr = 1.0 - 2.0 * (q.x * q.x + q.y * q.y);
+	var roll = Math.atan2(sinr, cosr);
+
+	// pitch (y-axis rotation)
+	var sinp = 2.0 * (q.w * q.y - q.z * q.x);
+	if (sinp > 1)
+		sinp =  1;
+	else sinp;
+	if (sinp < -1)
+		sinp = -1;
+	else sinp;
+	var pitch = Math.asin(sinp);
+
+	// yaw (z-axis rotation)
+	var siny = +.0 * (q.w * q.z + q.x * q.y);
+	var cosy = 1.0 - 2.0 * (q.y * q.y + q.z * q.z);  
+	var yaw = atan2(siny, cosy);
+}*/
