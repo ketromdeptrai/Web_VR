@@ -1,87 +1,63 @@
-# Project Title
-
-One Paragraph of project description goes here
-
+# 360 VR Video player based on WebVR with headtracking
+360 VR Video player based on WebVR with headtracking movement, compatible with Google Cardboard or Oculus Samsung Gear VR
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Prerequisites
-
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
 
 ### Installing
 
 A step by step series of examples that tell you have to get a development env running
 
-Say what the step will be
+* Install nodejs and npm
 
 ```
-Give the example
+sudo apt-get update
+sudo apt-get install nodejs
+sudo apt-get install nodejs-legacy
+sudo apt-get install npm
 ```
 
-And repeat
+* Install http-server
 
 ```
-until finished
+npm install http-server -g
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+* Clone this repository
+
+```
+git clone https://github.com/phunm211/Web_VR.git
+```
 
 ## Running the tests
 
 Explain how to run the automated tests for this system
 
-### Break down into end to end tests
-
-Explain what these tests test and why
+* Edit variable and run file bash Run.sh in this repository
 
 ```
-Give an example
+bash Run.sh
 ```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
+* Follow the variable of Server IP and WebVR Port in file Run.sh, access this address via a browser such as Google Chrome for Android or Samsung Internet VR and play video in VR mode.
+* Note that if you use Samsung Internet VR, the first time you use WebVR, you have to enable this function by naviagate to *internet://flags*, select *Enable* for WebVR.
+* Headtracking log will be in the folder ./head_tracking_log
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+* [Threejs](https://threejs.org/) - Javascript 3D library
+* [Webvr Polyfill](https://github.com/googlevr/webvr-polyfill/) - From Google
+* [Socket.io](https://github.com/socketio/socket.io/) - Realtime application framework
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+v1.0
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Phu Nguyen Minh** - *ESRC Lab - Hanoi University of Science and Technology* - [Facebook](https://facebook.com/ketromdeptrai)
+Many thanks to my teammates: **Cuong Pham The** for the ideal of Euler Angles Order, and specially, **Nguyen PD** who is the idol in my eyes.
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+This project is licensed under the ESRC License.
