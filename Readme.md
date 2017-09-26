@@ -40,7 +40,7 @@ bash Run.sh
 ```
 * Follow the variable of Server IP and WebVR Port in file Run.sh, access this address via a browser such as Google Chrome for Android or Samsung Internet VR and play video in VR mode.
 * Note that if you use Samsung Internet VR, the first time you use WebVR, you have to enable this function by naviagate to *internet://flags*, select *Enable* for WebVR.
-* Headtracking log will be in the folder ./head_tracking_log
+* Headtracking log will be in the folder *./head_tracking_log*
 
 ## Built With
 
