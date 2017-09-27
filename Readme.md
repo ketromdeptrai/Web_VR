@@ -20,7 +20,7 @@ sudo apt-get install npm
 * Install http-server:
 
 ```
-npm install http-server -g
+sudo npm install http-server -g
 ```
 
 * Clone this repository:
