@@ -45,7 +45,7 @@ bash Run.sh
 
 ## Bug founded
 
-* Sometimes, when you navigate to address of Web VR server in Samsung Internet VR and click button **Play Video**, at the first time, maybe video not completely loaded so maybe it can display a dark screen or pause video. You can solve this issue by press button **Back** on Samsung Gear VR,then click button **Play Video** again.
+* Sometimes, when you navigate to address of Web VR server in Samsung Internet VR and click button **Play Video**, at the first time, maybe video not completely loaded so maybe it can display a dark screen or pause video. You can solve this issue by press button **Back** on Samsung Gear VR, then click button **Play Video** again.
 
 * If you change any variable in file ***Run.sh***, you have to change variable ***WebVRPort***.
 
