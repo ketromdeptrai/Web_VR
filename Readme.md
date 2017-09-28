@@ -60,7 +60,7 @@ v1.0
 ## Authors
 
 * **Phu Nguyen Minh** - *ESRC Lab - Hanoi University of Science and Technology* - [Facebook](https://facebook.com/ketromdeptrai)
-* Many thanks to my teammates: **Cuong Pham The** for the ideal of Euler Angles Order, and specially, **Nguyen PD** who is the idol in my eyes.
+* Many thanks to my teammates: **Cuong Pham The** for the ideal of Euler Angles Order, and specially, **Nguyen Phung Dinh** who is the idol in my eyes.
 
 
 ## License
