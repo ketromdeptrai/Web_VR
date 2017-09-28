@@ -38,14 +38,16 @@ Explain how to run the automated tests
 ```
 bash Run.sh
 ```
-* Follow the variable of Server IP and WebVR Port in file Run.sh, access this address via a browser such as Google Chrome for Android or Samsung Internet VR and play video in VR mode.
-* Note that if you use Samsung Internet VR, the first time you use WebVR, you have to enable this function by naviagate to *internet://flags*, select *Enable* for WebVR.
-* Headtracking log will be in the folder *./head_tracking_log*.
+* Follow the variable of Server IP and WebVR Port in file ***Run.sh***, access this address via a browser such as Google Chrome for Android or Samsung Internet VR and play video in VR mode.
+* Note that if you use Samsung Internet VR, the first time you use WebVR, you have to enable this function by naviagate to ***internet://flags***, select **Enable** for WebVR.
+* Headtracking log will be in the folder ***./head_tracking_log***.
 * Log format order: [current_Time_Video_value]  [pitch_value]   [yaw_value]  [roll_value].
 
 ## Bug founded
 
-* Sometimes, when you navigate to address of Web VR server in Samsung Internet VR and click button *Play Video*, at the first time, maybe video not completely loaded so maybe it can display a dark screen or pause video. You can solve this issue by press button *Back* on Samsung Gear VR,then click button *Play Video* again.
+* Sometimes, when you navigate to address of Web VR server in Samsung Internet VR and click button **Play Video**, at the first time, maybe video not completely loaded so maybe it can display a dark screen or pause video. You can solve this issue by press button **Back** on Samsung Gear VR,then click button **Play Video** again.
+
+* If you change any variable in file ***Run.sh***, you have to change variable ***WebVRPort***.
 
 ## Built With
 
