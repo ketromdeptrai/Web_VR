@@ -26,6 +26,9 @@ var http = require('http'),
             if ((data+'').localeCompare("Stop") == 0){
             process.exit();
             }
+            else if ((data+'').localeCompare("Error") == 0){
+            process.exit(1);
+	    	}
         })
     }
 
