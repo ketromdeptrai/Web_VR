@@ -42,63 +42,7 @@ var maxWidth = canvas.width;
 var lineHeight = 25;
 var startScroll = false;
 var text = '';
-//videoTexture.needsUpdate = true;
 
-/*var ONLYONETIME_EXECUTE = null;
-window.addEventListener('load', function(e){ // on page load
- 
-    
-  if (ONLYONETIME_EXECUTE == null) {   
-
-        videoElement.play();
-        videoElement.pause();
-        videoElement.currentTime = 0;
-        ONLYONETIME_EXECUTE = 0;
-        }
- 
-}, false)*/
-/*var x = 0;
-var y = 60;
-
-function wrapText(x, y) {
-	context.clearRect(0, 0, canvas.width, canvas.height);
-	context.translate(x, y);
-	var words = text.split(' ');
-	var line = '';
-	for (var n = 0; n < words.length; n++) {
-		var testLine = line + words[n] + ' ';
-		var metrics = context.measureText(testLine);
-		var testWidth = metrics.width;
-		if (testWidth > maxWidth && n > 0) {
-			context.fillText(line, x, y);
-			line = words[n] + ' ';
-			y += lineHeight;
-		} else {
-			line = testLine;
-		}
-	}
-	context.fillText(line, x, y);
-	context.setTransform(1, 0, 0, 1, 0, 0);
-}
-wrapText(x, y);
-context.font = '13pt Calibri';
-context.fillStyle = 'yellow';
-//
-var textTexture = new THREE.Texture(canvas);
-textTexture.minFilter = THREE.LinearFilter;
-textTexture.needsUpdate = true;
-var textMaterial = new THREE.MeshBasicMaterial({
-	map: textTexture,
-	side: THREE.DoubleSide,
-	transparent: true
-});
-//
-var textMesh = new THREE.Mesh(planeGeometry, textMaterial);
-textMesh.position.set(0, controls.userHeight, -3);
-var pivot = new THREE.Object3D();
-scene.add(pivot);
-pivot.add(textMesh);*/
-//
 var renderer = new THREE.WebGLRenderer();
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -151,14 +95,6 @@ document.getElementById('vr-button').addEventListener('click', function() {
 	coordinatedTransfered = false;
 	startScroll = true;
 });
-//
-
-//var myVar = window.setInterval(writeFile, 33);
-/*function writeFile() {
-	if (!videoElement.ended && !videoElement.paused) {
-		textFile = textFile + text + ";\r\n";
-	}
-}*/
 var myVar;
 function sendtoServer(){
 	if (!videoElement.ended && !videoElement.paused){
@@ -282,25 +218,26 @@ function onkey(event) {
 		effect.render(scene, camera);
 	}
 }
-/*function getquaternion(){
-	var q = camera.quaternion.clone();
-	// roll (x-axis rotation)
-	var sinr = 2.0 * (q.w * q.x + q.y * q.z);
-	var cosr = 1.0 - 2.0 * (q.x * q.x + q.y * q.y);
-	var roll = Math.atan2(sinr, cosr);
+var elem = document.getElementById("myBar");
+function loaded()
+{
+    var r = videoElement.buffered;
+    var total = videoElement.duration;
 
-	// pitch (y-axis rotation)
-	var sinp = 2.0 * (q.w * q.y - q.z * q.x);
-	if (sinp > 1)
-		sinp =  1;
-	else sinp;
-	if (sinp < -1)
-		sinp = -1;
-	else sinp;
-	var pitch = Math.asin(sinp);
+    var start = r.start(0);
+    var end = r.end(0);
+    var width = Math.round((end/total)*100);
 
-	// yaw (z-axis rotation)
-	var siny = +.0 * (q.w * q.z + q.x * q.y);
-	var cosy = 1.0 - 2.0 * (q.y * q.y + q.z * q.z);  
-	var yaw = atan2(siny, cosy);
-}*/
+    elem.style.width = width + '%'; 
+    elem.innerHTML = width * 1  + '%';
+}   
+videoElement.onprogress = function() {
+   loaded();
+};
+videoElement.oncanplay= function() {
+    console.log(videoElement.buffered.length+"");
+};
+var downloadProgress = setInterval(function(){ loaded() }, 1000);
+function stopProgress() {
+    clearInterval(myVar);
+}

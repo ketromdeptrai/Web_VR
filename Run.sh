@@ -2,7 +2,7 @@
 #ServerIP="192.168.1.14"
 ServerIP=$(ip route get 1 | awk '{print $NF;exit}') #get your local IP address automatically
 SocketIOPort="8009"
-WebVRPort=8997 #WebVR port must different from Socket IO port
+WebVRPort=8017 #WebVR port must different from Socket IO port
 VideoPath="./walking_dead.mp4"
 FOV=90
 ReapeatTime=100 #number of times to loop SocketIO Server's code

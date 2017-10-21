@@ -33,7 +33,7 @@
     }
     #ui {
      position: absolute;
-     bottom: 10px;
+     bottom: 40px;
      left: 50%;
      transform: translate(-50%, -50%);
      text-align: center;
@@ -45,9 +45,22 @@
      color: white;
      margin-top: 1em;
     }
+    #myBar {
+    position: absolute;
+    bottom: 1px;
+    width: 0%;
+    height: 30px;
+    background-color: #4CAF50;
+    text-align: center; /* To center it horizontally (if you want) */
+    line-height: 30px; /* To center it vertically */
+    color: white; 
+	}
   </style>
 </head>
 <body>
+<div id="myProgress">
+  <div id="myBar">0%</div>
+</div>
   <div id="ui">
     <div id="vr-button"></div>
     <a id="no-vr" href="#">Play without a headset</a>

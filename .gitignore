@@ -1,8 +1,8 @@
-
 *.txt
+Nguyenidol/
+
+head_tracking_log/
 
 *.gz
-
-MOS4\.mp4
 
 *.mp4
