@@ -20,7 +20,7 @@ function changeTrack(event){
   	socket.emit('coordinate','videoName:'+((videoElement.src).split('/').pop()).slice(0, -4));
   	videoElement.load();
   	videoElement.play();
-  	videoElement.pause();
+  	//videoElement.pause();
 }
 //
 var videoTexture = new THREE.Texture(videoElement);
@@ -90,6 +90,7 @@ document.getElementById('vr-button').appendChild(enterVRButton.domElement);
 document.getElementById('no-vr').addEventListener('click', function() {
 	enterVRButton.requestEnterFullscreen();
 	//textFile = '';
+	videoElement.currentTime = 0;
 	videoElement.play();
 	videoPlayed = true;
 	coordinatedTransfered = false;
@@ -99,6 +100,7 @@ document.getElementById('no-vr').addEventListener('click', function() {
 });
 document.getElementById('vr-button').addEventListener('click', function() {
 	//textFile = '';
+	videoElement.currentTime = 0;
 	videoElement.play();
 	socket.emit('coordinate',"Start");
 	videoPlayed = true;
@@ -113,14 +115,6 @@ function sendtoServer(){
 	}
 }
 
-function saveFile(text) {
-	var d = new Date();
-	var filename = videoName + " " + d.getFullYear().toString() + "-" + d.getMonth().toString() + "-" + d.getDate().toString() + " " + d.getHours().toString() + "h" + d.getMinutes().toString() + "m" + d.getSeconds().toString() + "s";
-	var blob = new Blob([text], {
-		type: "text/plain;charset=utf-8"
-	});
-	saveAs(blob, filename + ".txt");
-}
 var interacting;
 /*var xaxis = new THREE.Vector3(1, 0, 0);
 var yaxis = new THREE.Vector3(0, 1, 0);
