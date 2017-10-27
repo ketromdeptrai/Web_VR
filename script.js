@@ -5,12 +5,23 @@ var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(FOV, window.innerWidth / window.innerHeight, 1, 1100);
 var geometry = new THREE.SphereGeometry(500, 60, 40);
 var videoElement = document.createElement('video');
-videoElement.src = './walking_dead.mp4';
+//videoElement.src = './walking_dead.mp4';
 videoElement.load();
 videoElement.crossOrigin = 'anonymous';
 videoElement.setAttribute('webkit-playsinline', 'true');
 videoElement.setAttribute('playsinline', 'true');
 var videoName = "Pano";
+mylist = document.getElementById("mylist");
+mylist.addEventListener("change", changeTrack);
+// Functions
+function changeTrack(event){
+	videoElement.src = '/'+event.target.value;
+  	mesh.material.needsUpdate = true;
+  	socket.emit('coordinate','videoName:'+((videoElement.src).split('/').pop()).slice(0, -4));
+  	videoElement.load();
+  	videoElement.play();
+  	videoElement.pause();
+}
 //
 var videoTexture = new THREE.Texture(videoElement);
 videoTexture.minFilter = THREE.LinearFilter;
@@ -83,17 +94,17 @@ document.getElementById('no-vr').addEventListener('click', function() {
 	videoPlayed = true;
 	coordinatedTransfered = false;
 	socket.emit('coordinate',"Start");
-	myVar = window.setInterval(sendtoServer, 1/60 * 1000);
 	startScroll = true;
+	myVar = window.setInterval(sendtoServer, 1/60 * 1000);
 });
 document.getElementById('vr-button').addEventListener('click', function() {
 	//textFile = '';
 	videoElement.play();
 	socket.emit('coordinate',"Start");
-	myVar = window.setInterval(sendtoServer, 1/60 * 1000);
 	videoPlayed = true;
 	coordinatedTransfered = false;
 	startScroll = true;
+	myVar = window.setInterval(sendtoServer, 1/60 * 1000);
 });
 var myVar;
 function sendtoServer(){
@@ -224,7 +235,7 @@ function loaded()
     var r = videoElement.buffered;
     var total = videoElement.duration;
 
-    var start = r.start(0);
+    //var start = r.start(0);
     var end = r.end(0);
     var width = Math.round((end/total)*100);
 
