@@ -8,9 +8,9 @@ FOV=90
 ListVideo=''
 ReapeatTime=100 #number of times to loop SocketIO Server's code
 #If you change any variable in file ***Run.sh***, you have to change variable ***WebVRPort***.
-search_dir='./Nguyenidol'
+VideoDir='./Nguyenidol'
 i=0
-for entry in "$search_dir"/*
+for entry in "$VideoDir"/*
 do
   	echo "$entry"
 	((i++))
